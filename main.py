@@ -20,7 +20,7 @@ def home():
 
 @app.route("/search", methods=["GET", "POST"])
 def search():
-    pass
+    return render_template("search.html")
 
 
 
