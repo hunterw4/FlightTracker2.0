@@ -565,6 +565,7 @@ progress {
   height: 500px; /* Adjust the height to match the width for a square shape */
   object-fit: cover; /* Ensures the photo covers the entire container while maintaining its aspect ratio */
   border-radius: 10px; /* Optional: Adds rounded corners */
+  box-shadow: 5px 5px 10px 2px rgba(0,0,0,.8);
 }
 
 .list-unstyled {
