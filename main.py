@@ -6,27 +6,32 @@ from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 import requests
 import datetime
+from API import LocationSearch
 
 app = Flask(__name__)
 
 Bootstrap5(app)
 
-@app.route("/", methods=["GET","POST"])
+@app.route("/", methods=["GET", "POST"])
 def home():
     return render_template("index.html")
 
 
-
-
 @app.route("/search", methods=["GET", "POST"])
 def search():
-    return render_template("search.html")
+    if request.method == "POST":
+        city = request.form["search"]
+        locationsearch = LocationSearch(city)
+        base_img = locationsearch.base_img()
+        food_img = locationsearch.food_img()
+        architecture_img = locationsearch.architecture_img()
+        return render_template("search.html", city=city, base_img=base_img, food_img=food_img,
+                               architecture_img=architecture_img)
 
 
-
-@app.route("/<location>", methods=["GET", "POST"])
-def location():
-    pass
+# @app.route("/<location>", methods=["GET", "POST"])
+# def location():
+#     pass
 
 
 if __name__ == "__main__":
