@@ -71,7 +71,7 @@ class openAi:
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "system",
-                    "content": "You are matching the country to the requested city, match it as best as possible but only reply with a country no extra text or explanations"},
+                    "content": "You are matching the country to the requested city, match it as best as possible but only reply with a country no extra text or explanations even if you cant find it"},
                 {"role": "user", "content": self.city}
             ]
         )
