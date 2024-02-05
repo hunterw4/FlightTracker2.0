@@ -7,6 +7,8 @@ from wtforms.validators import DataRequired
 import requests
 import datetime
 from API import LocationSearch, openAi
+import asyncio
+from aiohttp import ClientSession
 
 app = Flask(__name__)
 
@@ -16,7 +18,7 @@ Bootstrap5(app)
 def home():
     return render_template("index.html")
 
-
+# Current load time is 20 seconds
 @app.route("/search", methods=["GET", "POST"])
 def search():
     if request.method == "POST":

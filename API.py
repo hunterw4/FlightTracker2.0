@@ -43,7 +43,7 @@ class LocationSearch:
         for photo in data["results"]:
             if "tags" in photo:
                 for tag in photo["tags"]:
-                    if tag.get("title", "").lower() == "food":
+                    if tag.get("title", "").lower() == "food" and tag.get("title", "").lower() == f"{self.city}":
                         return photo["urls"]["full"]
         #If no food photo is found, return first URL
         return data["results"][0]["urls"]["full"]
@@ -55,6 +55,13 @@ class LocationSearch:
         }
         response = requests.get(LocationSearch.endpoint, params=search_params)
         data = response.json()
+        for photo in data["results"]:
+            if "tags" in photo:
+                for tag in photo["tags"]:
+                    if tag.get("title", "").lower() == "architecture" and tag.get("title", "").lower() == f"{self.city}":
+                        return photo["urls"]["full"]
+        #If no food photo is found, return first URL
+        return data["results"][0]["urls"]["full"]
         architecture_query = data["results"][0]["urls"]["full"]
         return architecture_query
 
@@ -88,7 +95,7 @@ class openAi:
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "system",
-                 "content": "You are providing information to a travel website, this paragraph needs to have a description of the requested city and what it has to offer and such with a max word count around 100"},
+                 "content": "You are providing information to a travel website, this paragraph needs to have a description of the requested city and what it has to offer and such with a max word count between 50-75 whichever is most natural for the paragraph"},
                 {"role": "user", "content": self.city}
             ]
         )
@@ -105,7 +112,7 @@ class openAi:
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "system",
-                 "content": "You are providing information to a travel website, this paragraph needs to provide information about culturaly relevant food items of the requested city and what its best known for. A max word cap around 100 words."},
+                 "content": "You are providing information to a travel website, this paragraph needs to provide information about culturaly relevant food items of the requested city and what its best known for. max word count between 50-75 whichever is most natural for the paragraph."},
                 {"role": "user", "content": self.city}
             ]
         )
@@ -122,7 +129,7 @@ class openAi:
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "system",
-                 "content": "You are providing information to a travel website. This paragraph needs to provide information about the architectual history of the requested city, what makes their architecture different and unique and some highlights of their architecture. Max word cap of around 100 words."},
+                 "content": "You are providing information to a travel website. This paragraph needs to provide information about the architectual history of the requested city, what makes their architecture different and unique and some highlights of their architecture. max word count between 50-75 whichever is most natural for the paragraph."},
                 {"role": "user", "content": self.city}
             ]
         )
@@ -139,7 +146,7 @@ class openAi:
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "system",
-                 "content": "You are providing information to a travel website. This needs to be a small catchy header for a already provided paragraph based off the requested city the existing paragraph goes into detail about the highlights of the requested city if that helps for context, also NO quotes"},
+                 "content": "You are providing information to a travel website. This needs to be a small catchy header max word count between 6-8 words for a already provided paragraph based off the requested city the existing paragraph goes into detail about the highlights of the requested city if that helps for context, also NO quotes, do not put quotes for the header it interferes with my program"},
                 {"role": "user", "content": self.city}
             ]
         )
@@ -156,7 +163,7 @@ class openAi:
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "system",
-                 "content": "You are providing information to a travel website. This needs to be a small catchy header for a already provided paragraph based off the requested city the existing paragraph goes into detail about the culturaly rich food items of the city, also NO quotes"},
+                 "content": "You are providing information to a travel website. This needs to be a small catchy header max word count between 6-8 words for a already provided paragraph based off the requested city the existing paragraph goes into detail about the culturaly rich food items of the city, also NO quotes, do not put quotes for the header it interferes with my program"},
                 {"role": "user", "content": self.city}
             ]
         )
@@ -173,7 +180,7 @@ class openAi:
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "system",
-                 "content": "You are providing information to a travel website. This needs to be a small catchy header for a already provided paragraph based off the requested city the existing paragraph goes into detail about the highlights of the requested city's architecture if that helps for context, also NO quotes"},
+                 "content": "You are providing information to a travel website. This needs to be a small catchy header max word count between 6-8 words for a already provided paragraph based off the requested city the existing paragraph goes into detail about the highlights of the requested city's architecture if that helps for context, also NO quotes, do not put quotes for the header it interferes with my program"},
                 {"role": "user", "content": self.city}
             ]
         )
