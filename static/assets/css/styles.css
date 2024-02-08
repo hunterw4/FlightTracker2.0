@@ -560,6 +560,16 @@ progress {
   }
 }
 
+.masthead {
+    position: relative;
+}
+
+.bottom-right-btn {
+    position: absolute;
+    bottom: -140px;
+    right: 20px;
+}
+
 .photo-square {
   width: 400px; /* Adjust the width as needed */
   height: 500px; /* Adjust the height to match the width for a square shape */
