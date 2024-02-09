@@ -16,6 +16,20 @@ Bootstrap5(app)
 
 @app.route("/", methods=["GET", "POST"])
 def home():
+    flights = ["Palermo", "Berlin", "Abu Dhabi"]
+    cities = ["Paris", "Venice", "Tokyo", "Kyoto", "Rome", "Milan", "Florence"]
+    flight_list = []
+    poi_list = []
+    for city in cities:
+        locationsearch = LocationSearch(city)
+        poi_img = locationsearch.header_img()
+        poi_list.append((city, poi_img))
+    for city in flights:
+        locationsearch = LocationSearch(city)
+        flight_img = locationsearch.header_img()
+        flight_list.append((city, flight_img))
+    return render_template("index.html", poi_list=poi_list, flight_list=flight_list)
+
     # if request.method == "POST":
     #     city = request.form["city"]
     #     locationsearch = LocationSearch(city)
@@ -23,7 +37,6 @@ def home():
     #     poi_list = []
     #     poi_list.append((city, poi_img))
     #     return render_template("index.html", poi_list=poi_list)
-    return render_template("index.html")
 
 # Current load time is 20 seconds
 

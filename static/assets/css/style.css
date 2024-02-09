@@ -1007,6 +1007,15 @@ section {
 /*--------------------------------------------------------------
 # Portfolio
 --------------------------------------------------------------*/
+
+.portfolio .portfolio-wrap img {
+  width: 450px;
+  height: 450px;
+  object-fit: cover; /* This ensures that the image covers the entire container */
+}
+
+
+
 .portfolio .portfolio-item {
   margin-bottom: 30px;
 }
@@ -1051,16 +1060,36 @@ section {
 }
 
 .portfolio .portfolio-wrap::before {
-  content: "";
+  content: attr(data-city);
   background: rgba(255, 255, 255, 0.5);
   position: absolute;
   left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
+  top: 0; /* Adjusted to top */
+  width: 100%;
+  padding: 10px;
   transition: all ease-in-out 0.3s;
   z-index: 2;
   opacity: 0;
+  font-size: 40px;
+  text-align: center;
+}
+
+.portfolio .portfolio-wrap:hover::before {
+  opacity: 1; /* Adjusted opacity */
+}
+
+.portfolio .portfolio-wrap .portfolio-links form button {
+  background: rgba(103, 176, 209, 0.75);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 28px;
+  transition: 0.3s;
+  width: 50px;
+}
+
+.portfolio .portfolio-wrap .portfolio-links form button:hover {
+  background: rgba(103, 176, 209, 0.95);
 }
 
 .portfolio .portfolio-wrap .portfolio-links {
