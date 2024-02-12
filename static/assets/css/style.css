@@ -1072,6 +1072,7 @@ section {
   opacity: 0;
   font-size: 40px;
   text-align: center;
+  color: white;
 }
 
 .portfolio .portfolio-wrap:hover::before {
@@ -1080,7 +1081,7 @@ section {
 
 .portfolio .portfolio-wrap .portfolio-links form button {
   background: rgba(103, 176, 209, 0.75);
-  color: #fff;
+  color: white;
   border: none;
   cursor: pointer;
   font-size: 28px;
@@ -1093,7 +1094,7 @@ section {
 }
 
 .portfolio .portfolio-wrap .portfolio-links {
-  opacity: 1;
+  opacity: 0.9; /* Increased opacity */
   left: 0;
   right: 0;
   bottom: -60px;
@@ -1102,23 +1103,26 @@ section {
   transition: all ease-in-out 0.3s;
   display: flex;
   justify-content: center;
+  background-color: #3e83b3; /* Adjusted background color */
+  border-radius: 5px; /* Optional: Add border radius for a softer look */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add box shadow for depth */
 }
 
 .portfolio .portfolio-wrap .portfolio-links a {
-  color: #fff;
+  color: #fff; /* Text color */
   font-size: 28px;
   text-align: center;
-  background: rgba(103, 176, 209, 0.75);
+  background: rgba(103, 176, 209, 0.75); /* Background color */
   transition: 0.3s;
   width: 50%;
 }
 
 .portfolio .portfolio-wrap .portfolio-links a:hover {
-  background: rgba(103, 176, 209, 0.95);
+  background: rgba(103, 176, 209, 0.95); /* Background color on hover */
 }
 
 .portfolio .portfolio-wrap .portfolio-links a+a {
-  border-left: 1px solid #8ec4dd;
+  border-left: 1px solid #8ec4dd; /* Border color */
 }
 
 .portfolio .portfolio-wrap:hover::before {

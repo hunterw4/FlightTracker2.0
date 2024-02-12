@@ -22,11 +22,11 @@ def home():
     poi_list = []
     for city in cities:
         locationsearch = LocationSearch(city)
-        poi_img = locationsearch.header_img()
+        poi_img = locationsearch.base_img()
         poi_list.append((city, poi_img))
     for city in flights:
         locationsearch = LocationSearch(city)
-        flight_img = locationsearch.header_img()
+        flight_img = locationsearch.base_img()
         flight_list.append((city, flight_img))
     return render_template("index.html", poi_list=poi_list, flight_list=flight_list)
 
@@ -42,11 +42,11 @@ def home():
 
 async def imgQuery(city):
     locationsearch = LocationSearch(city)
-    header_img = locationsearch.header_img()
+    header_img, header_img2, header_img3 = locationsearch.header_img()
     base_img = locationsearch.base_img()
     food_img = locationsearch.food_img()
     architecture_img = locationsearch.architecture_img()
-    return header_img, base_img, food_img, architecture_img
+    return header_img, header_img2, header_img3, base_img, food_img, architecture_img
 
 async def aIQuery(city):
     gpt = openAi(city)
@@ -68,13 +68,36 @@ async def search():
         ai_result = await aIQuery(city)
         img_result = await imgQuery(city)
 
-        header_img, base_img, food_img, architecture_img = img_result
+        header_img, header_img2, header_img3, base_img, food_img, architecture_img = img_result
         country, dynamic_p1, dynamic_p2, dynamic_p3, dynamic_h1, dynamic_h2, dynamic_h3 = ai_result
 
-    return render_template("search.html", city=city, header_img=header_img, base_img=base_img, food_img=food_img,
+    return render_template("search.html", city=city, header_img=header_img, header_img2=header_img2,header_img3=header_img3, base_img=base_img, food_img=food_img,
                                architecture_img=architecture_img, country=country, dynamic_p1=dynamic_p1, dynamic_p2=dynamic_p2, dynamic_p3=dynamic_p3, dynamic_h1=dynamic_h1,
                                 dynamic_h2=dynamic_h2, dynamic_h3=dynamic_h3)
 
+@app.route("/test", methods=["GET", "POST"])
+def test():
+    return render_template("test.html")
+
+
+@app.route("/edit-flight", methods=["GET", "POST"])
+def edit_flight():
+    return render_template("edit-flight.html")
+
+
+@app.route("/flight", methods=["GET", "POST"])
+async def flight():
+    if request.method == "POST":
+        city = request.form["flying-to"]
+        ai_result = await aIQuery(city)
+        img_result = await imgQuery(city)
+
+        header_img, header_img2, header_img3, base_img, food_img, architecture_img = img_result
+        country, dynamic_p1, dynamic_p2, dynamic_p3, dynamic_h1, dynamic_h2, dynamic_h3 = ai_result
+
+    return render_template("search.html", city=city, header_img=header_img, header_img2=header_img2,header_img3=header_img3, base_img=base_img, food_img=food_img,
+                               architecture_img=architecture_img, country=country, dynamic_p1=dynamic_p1, dynamic_p2=dynamic_p2, dynamic_p3=dynamic_p3, dynamic_h1=dynamic_h1,
+                                dynamic_h2=dynamic_h2, dynamic_h3=dynamic_h3)
 if __name__ == "__main__":
     app.run(debug=True)
 

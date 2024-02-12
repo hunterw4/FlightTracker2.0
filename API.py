@@ -1,8 +1,10 @@
+import aiohttp
 import requests
 import os
 from dotenv import load_dotenv, dotenv_values
 from openai import OpenAI
-
+import asyncio
+from aiohttp import ClientSession
 
 load_dotenv()
 
@@ -20,7 +22,10 @@ class LocationSearch:
         response = requests.get(LocationSearch.endpoint, params=search_params)
         data = response.json()
         header_img = data["results"][0]["urls"]["full"]
-        return header_img
+        # base_img is [1] hence the skip
+        header_img2 = data["results"][2]["urls"]["full"]
+        header_img3 = data["results"][3]["urls"]["full"]
+        return header_img, header_img2, header_img3
     def base_img(self):
         search_params = {
             "query": f"{self.city}",
@@ -187,3 +192,31 @@ class openAi:
 
         h3_response = (completion.choices[0].message.content)
         return h3_response
+
+class flightSearch():
+    flightKey = "c93O3qnhnW-yd4wIQvkuDgsLjB_Jt_HW"
+    url = "https://api.tequila.kiwi.com"
+
+    def __init__(self, city):
+        self.city = city
+        self.header = {
+            "apikey": flightSearch.flightKey
+        }
+
+    def IATA(self):
+        iata_params = {
+            "term": self.city
+        }
+        response = requests.get(url=flightSearch.url, params=iata_params, headers=self.header)
+        data = response.json()
+        return data
+    async def search(self):
+        async with aiohttp.ClientSession() as session:
+            response = await session.get(f"{flightSearch.url}/")
+            data = response.json()
+
+
+flight = flightSearch(city="boise")
+test = flight.IATA()
+
+print(test)
