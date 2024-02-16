@@ -140,17 +140,18 @@
                             <path class="deco-layer deco-layer--3" d="M43.415,98.342c0,0,48.283-68.927,109.133-68.927c65.886,0,97.983,67.914,97.983,67.914v3.716H42.401L43.415,98.342z" fill="#FFFFFF" opacity="0.7"></path>
                             <path class="deco-layer deco-layer--4" d="M-34.667,62.998c0,0,56-45.667,120.316-27.839C167.484,57.842,197,41.332,232.286,30.428c53.07-16.399,104.047,36.903,104.047,36.903l1.333,36.667l-372-2.954L-34.667,62.998z" fill="#FFFFFF"></path>
                         </svg>
-                        <div class="pricing-price"><span class="pricing-currency">$</span>700
-                            <span class="pricing-period">/ round</span>
+                        <div class="pricing-price"><span class="pricing-currency">$</span>{{c_price}}
+                            <span class="pricing-period">/ One way</span>
                         </div>
                         <h3 class="pricing-title">Cheapest</h3>
                     </div>
                     <ul class="pricing-feature-list">
-                        <li class="pricing-feature">Economy</li>
-                        <li class="pricing-feature">6hr layover</li>
-                        <li class="pricing-feature">3 Stops</li>
+                        <li class="pricing-feature">{{c_fare}}</li>
+                        <li class="pricing-feature">{{c_layover}}hr Total Layover</li>
+                        <li class="pricing-feature">{{c_stops}} Stops</li>
+                        <li class="pricing-feature">{{c_time}}hr Travel Time</li>
                     </ul>
-                    <button class="pricing-action">Track Flight</button>
+                    <button onclick="window.location.href='{{c_link}}'" class="pricing-action">Track Flight</button>
                 </div>
                 <div class="pricing-item features-item ja-animate pricing__item--featured" data-animation="move-from-bottom" data-delay="item-1" style="min-height: 497px;">
                     <div class="pricing-deco" style="background: linear-gradient(135deg,#a93bfe,#584efd)">
@@ -160,17 +161,18 @@
                             <path class="deco-layer deco-layer--3" d="M43.415,98.342c0,0,48.283-68.927,109.133-68.927c65.886,0,97.983,67.914,97.983,67.914v3.716H42.401L43.415,98.342z" fill="#FFFFFF" opacity="0.7"></path>
                             <path class="deco-layer deco-layer--4" d="M-34.667,62.998c0,0,56-45.667,120.316-27.839C167.484,57.842,197,41.332,232.286,30.428c53.07-16.399,104.047,36.903,104.047,36.903l1.333,36.667l-372-2.954L-34.667,62.998z" fill="#FFFFFF"></path>
                         </svg>
-                        <div class="pricing-price"><span class="pricing-currency">$</span>1200
-                            <span class="pricing-period">/ round</span>
+                        <div class="pricing-price"><span class="pricing-currency">$</span>{{a_price}}
+                            <span class="pricing-period">/ One way</span>
                         </div>
                         <h3 class="pricing-title">Average</h3>
                     </div>
                     <ul class="pricing-feature-list">
-                        <li class="pricing-feature">Economy</li>
-                        <li class="pricing-feature">2hr layover</li>
-                        <li class="pricing-feature">1 Stop</li>
+                        <li class="pricing-feature">{{a_fare}}</li>
+                        <li class="pricing-feature">{{a_layover}}hr Total Layover</li>
+                        <li class="pricing-feature">{{a_stops}} Stop</li>
+                        <li class="pricing-feature">{{a_time}}hr Travel Time</li>
                     </ul>
-                    <button class="pricing-action">Track flight</button>
+                    <button onclick="window.location.href='{{a_link}}'" class="pricing-action">Track Flight</button>
                 </div>
                 <div class="pricing-item features-item ja-animate" data-animation="move-from-bottom" data-delay="item-2" style="min-height: 497px;">
                     <div class="pricing-deco">
@@ -180,17 +182,18 @@
                             <path class="deco-layer deco-layer--3" d="M43.415,98.342c0,0,48.283-68.927,109.133-68.927c65.886,0,97.983,67.914,97.983,67.914v3.716H42.401L43.415,98.342z" fill="#FFFFFF" opacity="0.7"></path>
                             <path class="deco-layer deco-layer--4" d="M-34.667,62.998c0,0,56-45.667,120.316-27.839C167.484,57.842,197,41.332,232.286,30.428c53.07-16.399,104.047,36.903,104.047,36.903l1.333,36.667l-372-2.954L-34.667,62.998z" fill="#FFFFFF"></path>
                         </svg>
-                        <div class="pricing-price"><span class="pricing-currency">$</span>2500
-                            <span class="pricing-period">/ round</span>
+                        <div class="pricing-price"><span class="pricing-currency">$</span>{{e_price}}
+                            <span class="pricing-period">/ One way</span>
                         </div>
                         <h3 class="pricing-title">Expensive</h3>
                     </div>
                     <ul class="pricing-feature-list">
-                        <li class="pricing-feature">Buisness Class</li>
-                        <li class="pricing-feature">30m Layover</li>
-                        <li class="pricing-feature">1 Stop</li>
+                        <li class="pricing-feature">{{e_fare}}</li>
+                        <li class="pricing-feature">{{e_layover}}m Total Layover</li>
+                        <li class="pricing-feature">{{e_stop}} Stop</li>
+                        <li class="pricing-feature">{{e_time}}hr Travel Time</li>
                     </ul>
-                    <button class="pricing-action">Track Flight</button>
+                    <button onclick="window.location.href='{{e_link}}'" class="pricing-action">Track Flight</button>
                 </div>
             </div>
         </section>
