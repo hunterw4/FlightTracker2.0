@@ -6,7 +6,8 @@ from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 import requests
 import datetime
-from API import LocationSearch, openAi, flightSearch
+from API import LocationSearch, openAi
+from flight_API import expensiveSearch, flightSearch
 import asyncio
 from aiohttp import ClientSession
 
@@ -64,6 +65,7 @@ async def aIQuery(city):
 
 async def fetch_flight_data(airport, search_func):
     flightsearch = flightSearch(airport)
+    flight = expensiveSearch(airport)
     IATA = flightsearch.IATA()
     data = await search_func(IATA)
     return (data[0], data[1], data[2], data[3], data[4], data[5])  # Return flight data as a tuple
@@ -80,12 +82,13 @@ async def search():
         header_img, header_img2, header_img3, base_img, food_img, architecture_img = img_result
         country, airport, dynamic_p1, dynamic_p2, dynamic_p3, dynamic_h1, dynamic_h2, dynamic_h3 = ai_result
 
-        flightsearch = flightSearch(airport)
+        flightsearch = flightSearch(city)
+        flight = expensiveSearch(city)
         c_price, c_fare, c_stops, c_layover, c_time, c_link = await fetch_flight_data(airport,
                                                                                       flightsearch.cheapest_search)
         a_price, a_fare, a_stops, a_layover, a_time, a_link = await fetch_flight_data(airport, flightsearch.average_search)
 
-        e_price, e_fare, e_stops, e_layover, e_time, e_link = await fetch_flight_data(airport,flightsearch.expensive_search)
+        e_price, e_fare, e_stops, e_layover, e_time, e_link = await fetch_flight_data(airport,flight.expensive_search)
 
     return render_template("search.html", city=city, header_img=header_img, header_img2=header_img2,header_img3=header_img3, base_img=base_img, food_img=food_img,
                                architecture_img=architecture_img, country=country, dynamic_p1=dynamic_p1, dynamic_p2=dynamic_p2, dynamic_p3=dynamic_p3, dynamic_h1=dynamic_h1,
@@ -96,16 +99,15 @@ async def search():
 
 @app.route("/test", methods=["GET", "POST"])
 async def test():
-    flightsearch = flightSearch("Tokyo")
-    IATA = flightsearch.IATA()
-    cheapest_flight_data = await flightsearch.cheapest_search(IATA)
-    price = cheapest_flight_data[0]
-    fare = cheapest_flight_data[1]
-    stops = cheapest_flight_data[2]
-    layover = cheapest_flight_data[3]
-    time = cheapest_flight_data[4]
-    link = cheapest_flight_data[5]
-    print(time)
+    city = "Dublin"
+    ai_result = await aIQuery(city)
+    country, airport, dynamic_p1, dynamic_p2, dynamic_p3, dynamic_h1, dynamic_h2, dynamic_h3 = ai_result
+    flightsearch = flightSearch(city)
+
+    e_price, e_fare, e_stops, e_layover, e_time, e_link = await fetch_flight_data(airport,
+                                                                                  flightsearch.expensive_search)
+    print(e_price, e_fare, e_stops, e_layover, e_time, e_link)
+
     return render_template("test.html")
 
 
