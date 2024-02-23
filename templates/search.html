@@ -141,7 +141,7 @@
                             <path class="deco-layer deco-layer--4" d="M-34.667,62.998c0,0,56-45.667,120.316-27.839C167.484,57.842,197,41.332,232.286,30.428c53.07-16.399,104.047,36.903,104.047,36.903l1.333,36.667l-372-2.954L-34.667,62.998z" fill="#FFFFFF"></path>
                         </svg>
                         <div class="pricing-price"><span class="pricing-currency">$</span>{{c_price}}
-                            <span class="pricing-period">/ One way</span>
+                            <span class="pricing-period">/ {{f_type}}</span>
                         </div>
                         <h3 class="pricing-title">Cheapest</h3>
                     </div>
@@ -149,7 +149,7 @@
                         <li class="pricing-feature">{{c_fare}}</li>
                         <li class="pricing-feature">{{c_layover}}hr Total Layover</li>
                         <li class="pricing-feature">{{c_stops}} Stops</li>
-                        <li class="pricing-feature">{{c_time}}hr Travel Time</li>
+                        <li class="pricing-feature">{{c_time}} Travel Time</li>
                     </ul>
                     <button onclick="window.location.href='{{c_link}}'" class="pricing-action">Track Flight</button>
                 </div>
@@ -162,7 +162,7 @@
                             <path class="deco-layer deco-layer--4" d="M-34.667,62.998c0,0,56-45.667,120.316-27.839C167.484,57.842,197,41.332,232.286,30.428c53.07-16.399,104.047,36.903,104.047,36.903l1.333,36.667l-372-2.954L-34.667,62.998z" fill="#FFFFFF"></path>
                         </svg>
                         <div class="pricing-price"><span class="pricing-currency">$</span>{{a_price}}
-                            <span class="pricing-period">/ One way</span>
+                            <span class="pricing-period">/ {{f_type}}</span>
                         </div>
                         <h3 class="pricing-title">Average</h3>
                     </div>
@@ -170,7 +170,7 @@
                         <li class="pricing-feature">{{a_fare}}</li>
                         <li class="pricing-feature">{{a_layover}}hr Total Layover</li>
                         <li class="pricing-feature">{{a_stops}} Stop</li>
-                        <li class="pricing-feature">{{a_time}}hr Travel Time</li>
+                        <li class="pricing-feature">{{a_time}} Travel Time</li>
                     </ul>
                     <button onclick="window.location.href='{{a_link}}'" class="pricing-action">Track Flight</button>
                 </div>
@@ -183,15 +183,15 @@
                             <path class="deco-layer deco-layer--4" d="M-34.667,62.998c0,0,56-45.667,120.316-27.839C167.484,57.842,197,41.332,232.286,30.428c53.07-16.399,104.047,36.903,104.047,36.903l1.333,36.667l-372-2.954L-34.667,62.998z" fill="#FFFFFF"></path>
                         </svg>
                         <div class="pricing-price"><span class="pricing-currency">$</span>{{e_price}}
-                            <span class="pricing-period">/ One way</span>
+                            <span class="pricing-period">/ {{f_type}}</span>
                         </div>
                         <h3 class="pricing-title">Expensive</h3>
                     </div>
                     <ul class="pricing-feature-list">
                         <li class="pricing-feature">{{e_fare}}</li>
                         <li class="pricing-feature">{{e_layover}}m Total Layover</li>
-                        <li class="pricing-feature">{{e_stop}} Stop</li>
-                        <li class="pricing-feature">{{e_time}}hr Travel Time</li>
+                        <li class="pricing-feature">{{e_stops}} Stop</li>
+                        <li class="pricing-feature">{{e_time}} Travel Time</li>
                     </ul>
                     <button onclick="window.location.href='{{e_link}}'" class="pricing-action">Track Flight</button>
                 </div>
@@ -201,7 +201,7 @@
           <div class="card-header">
             <h4 class="my-0 font-weight-sm">Flight Options</h4>
           </div>
-            <button type="button" class="btn btn-lg btn-block btn-outline-primary">Customize</button>
+            <button type="button" onclick="window.location.href='/edit-flight'" class="btn btn-lg btn-block btn-outline-primary">Customize</button>
           </div>
         </div>
         <!-- Footer-->

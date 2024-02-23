@@ -40,15 +40,15 @@
 					</div>
 					<div class="col-md-7 col-md-offset-1">
 						<div class="booking-form">
-							<form action="/flight" method="POST">
+							<form id="flight-form" action="/flight" method="POST">
 								<div class="form-group">
 									<div class="form-checkbox">
-										<label for="roundtrip">
-											<input type="radio" id="roundtrip" name="flight-type">
+										<label for="round">
+											<input type="radio" id="round" name="flight-type" value="round">
 											<span></span>Roundtrip
 										</label>
-										<label for="one-way">
-											<input type="radio" id="one-way" name="flight-type">
+										<label for="oneway">
+											<input type="radio" id="oneway" name="flight-type" value="oneway">
 											<span></span>One way
 										</label>
 									</div>
@@ -57,13 +57,13 @@
 									<div class="col-md-6">
 										<div class="form-group">
 											<span class="form-label">Flying from</span>
-											<input id="flying-from" class="form-control" type="text" placeholder="City or airport">
+											<input name="flying-from" class="form-control" type="text" placeholder="City">
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<span class="form-label">Flying to</span>
-											<input id="flying-to" class="form-control" type="text" placeholder="City or airport">
+											<input name="flying-to" class="form-control" type="text" placeholder="City">
 										</div>
 									</div>
 								</div>
@@ -71,13 +71,13 @@
 									<div class="col-md-6">
 										<div class="form-group">
 											<span class="form-label">Departing</span>
-											<input id="depart-date" class="form-control" type="date" required>
+											<input name="depart-date" class="form-control" type="date" required>
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<span class="form-label">Returning</span>
-											<input id="return-date" class="form-control" type="date" required>
+											<input name="return-date" class="form-control" type="date" required>
 										</div>
 									</div>
 								</div>
@@ -85,7 +85,7 @@
 									<div class="col-md-4">
 										<div class="form-group">
 											<span class="form-label">Adults (18+)</span>
-											<select id="adults" class="form-control">
+											<select name="adults" class="form-control">
 												<option>1</option>
 												<option>2</option>
 												<option>3</option>
@@ -97,7 +97,7 @@
 									<div class="col-md-4">
 										<div class="form-group">
 											<span class="form-label">Children (0-17)</span>
-											<select id="children" class="form-control">
+											<select name="children" class="form-control">
 												<option>0</option>
 												<option>1</option>
 												<option>2</option>
@@ -110,25 +110,27 @@
 									<div class="col-md-4">
 										<div class="form-group">
 											<span class="form-label">Travel class</span>
-											<select id="class" class="form-control">
+											<select name="class" class="form-control">
 												<option>Economy class</option>
-												<option>Business class</option>
 												<option>First class</option>
+												<option>Business class</option>
 											</select>
 											<span class="select-arrow"></span>
 										</div>
 									</div>
 								</div>
 								<div class="form-btn">
-									<button class="submit-btn">Show flights</button>
+									<button type="submit" class="submit-btn">Show flights</button>
 								</div>
 							</form>
 						</div>
 					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+
+					<script>
+						function redirectToFlight() {
+							document.getElementById("flight-form").submit();
+						}
+					</script>
+
 
 </html>
