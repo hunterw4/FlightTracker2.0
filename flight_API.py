@@ -258,8 +258,6 @@ class customSearch():
         return IATA
 
     async def cheap_custom(self, IATA, IATA_TO, flight_type, num_days, fare, date, date_to, adults, children):
-        if children == None:
-            children = 0
         params = {
             "fly_from": IATA,
             "fly_to": IATA_TO,
@@ -285,8 +283,6 @@ class customSearch():
         return new_data
 
     async def average_custom(self, IATA, IATA_TO, flight_type, num_days, fare, date, date_to, adults, children):
-        if children == None:
-            children = 0
         params = {
             "fly_from": IATA,
             "fly_to": IATA_TO,
@@ -313,8 +309,6 @@ class customSearch():
 
     async def expensive_custom(self, IATA, IATA_TO, flight_type, num_days, fare, date, date_to, adults, children):
         stop_to = "02:00"
-        if children == None:
-            children = 0
         if flight_type == "round":
             stop_to = "03:00"
         params = {

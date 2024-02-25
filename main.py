@@ -63,12 +63,19 @@ async def aIQuery(city):
     return country, airport, dynamic_p1, dynamic_p2, dynamic_p3, dynamic_h1, dynamic_h2, dynamic_h3
 
 
-async def fetch_flight_data(airport, search_func):
-    flightsearch = flightSearch(airport)
-    flight = expensiveSearch(airport)
-    IATA = flightsearch.IATA()
-    data = await search_func(IATA)
-    return (data[0], data[1], data[2], data[3], data[4], data[5])  # Return flight data as a tuple
+async def fetch_flight_data(city, airport, search_func):
+    try:
+        flightsearch = flightSearch(airport)
+        flight = expensiveSearch(airport)
+        IATA = flightsearch.IATA()
+        data = await search_func(IATA)
+        return (data[0], data[1], data[2], data[3], data[4], data[5])  # Return flight data as a tuple
+    except TypeError:
+        flightsearch = flightSearch(city)
+        flight = expensiveSearch(city)
+        IATA = flightsearch.IATA()
+        data = await search_func(IATA)
+        return (data[0], data[1], data[2], data[3], data[4], data[5])
 
 
 async def fetch_custom_flight_data(airport, fly_from, flight_type, num_days, date, date_to, raw_fare, adults, children, search_func):
@@ -107,11 +114,11 @@ async def search():
 
         flightsearch = flightSearch(city)
         flight = expensiveSearch(city)
-        c_price, c_fare, c_stops, c_layover, c_time, c_link = await fetch_flight_data(airport,
+        c_price, c_fare, c_stops, c_layover, c_time, c_link = await fetch_flight_data(city, airport,
                                                                                       flightsearch.cheapest_search)
-        a_price, a_fare, a_stops, a_layover, a_time, a_link = await fetch_flight_data(airport, flightsearch.average_search)
+        a_price, a_fare, a_stops, a_layover, a_time, a_link = await fetch_flight_data(city,airport, flightsearch.average_search)
 
-        e_price, e_fare, e_stops, e_layover, e_time, e_link = await fetch_flight_data(airport,flight.expensive_search)
+        e_price, e_fare, e_stops, e_layover, e_time, e_link = await fetch_flight_data(city, airport,flight.expensive_search)
 
     return render_template("search.html", city=city, header_img=header_img, header_img2=header_img2,header_img3=header_img3, base_img=base_img, food_img=food_img,
                                architecture_img=architecture_img, country=country, dynamic_p1=dynamic_p1, dynamic_p2=dynamic_p2, dynamic_p3=dynamic_p3, dynamic_h1=dynamic_h1,
@@ -158,10 +165,10 @@ async def flight():
         raw_depart = request.form.get("depart-date")
         raw_return = request.form.get("return-date")
 
-        parsed_date = datetime.strptime(raw_depart, "%Y-%m-%d")
+        parsed_date = datetime.strptime(raw_depart, "%m/%d/%Y")
         # Convert the parsed date to the desired format
         date = parsed_date.strftime("%d/%m/%Y")
-        parsed_return = datetime.strptime(raw_return, "%Y-%m-%d")
+        parsed_return = datetime.strptime(raw_return, "%m/%d/%Y")
         date_to = parsed_return.strftime("%d/%m/%Y")
 
         difference = parsed_return - parsed_date
