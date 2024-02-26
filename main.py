@@ -189,12 +189,11 @@ async def flight():
         adults = request.form.get("adults")
         children = request.form.get("children")
         ai_result = await aIQuery(city_to)
-        img_result = await imgQuery(city_to)
 
 
-        header_img, header_img2, header_img3, base_img, food_img, architecture_img = img_result
         country, airport, dynamic_p1, dynamic_p2, dynamic_p3, dynamic_h1, dynamic_h2, dynamic_h3 = ai_result
-
+        img_result = await imgQuery(city_to, country)
+        header_img, header_img2, header_img3, base_img, food_img, architecture_img = img_result
         flight = customSearch(city, airport)
 
         c_price, c_fare, c_stops, c_layover, c_time, c_link = await fetch_custom_flight_data(airport, city, flight_type, num_days,date, date_to,fare,adults,children,
