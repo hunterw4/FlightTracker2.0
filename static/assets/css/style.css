@@ -416,6 +416,20 @@ p {
 /*--------------------------------------------------------------
 # Hero Section
 --------------------------------------------------------------*/
+
+/* CSS to hide and display the video and image based on the screen size */
+@media (max-width: 768px) {
+  #hero-video {
+    display: none; /* Hide video on mobile */
+  }
+}
+
+@media (min-width: 769px) {
+  #mobile-image {
+    display: none; /* Hide image on desktop */
+  }
+}
+
 #hero {
   width: 100%;
   height: 100vh;
@@ -1021,8 +1035,6 @@ section {
   height: 450px;
   object-fit: cover; /* This ensures that the image covers the entire container */
 }
-
-
 
 .portfolio .portfolio-item {
   margin-bottom: 30px;
