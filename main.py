@@ -10,6 +10,7 @@ from API import LocationSearch, openAi
 from flight_API import expensiveSearch, flightSearch, customSearch
 import asyncio
 from aiohttp import ClientSession
+import random
 
 app = Flask(__name__)
 
@@ -17,6 +18,9 @@ Bootstrap5(app)
 
 @app.route("/", methods=["GET", "POST"])
 def home():
+    videos = ["beach_bg", "beach_bg2", "beach_bg3"]
+    random_video = random.randint(0, 2)
+    video = videos[random_video]
     flights = ["Palermo", "Berlin", "Abu Dhabi"]
     cities = ["Paris", "Venice", "Tokyo", "Kyoto", "Rome", "Milan", "Florence"]
     country = ""
@@ -30,7 +34,7 @@ def home():
         locationsearch = LocationSearch(city,country)
         flight_img = locationsearch.base_img()
         flight_list.append((city, flight_img))
-    return render_template("index.html", poi_list=poi_list, flight_list=flight_list)
+    return render_template("index.html", poi_list=poi_list, flight_list=flight_list, video=video)
 
     # if request.method == "POST":
     #     city = request.form["city"]
