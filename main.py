@@ -19,14 +19,15 @@ Bootstrap5(app)
 def home():
     flights = ["Palermo", "Berlin", "Abu Dhabi"]
     cities = ["Paris", "Venice", "Tokyo", "Kyoto", "Rome", "Milan", "Florence"]
+    country = ""
     flight_list = []
     poi_list = []
     for city in cities:
-        locationsearch = LocationSearch(city)
+        locationsearch = LocationSearch(city, country)
         poi_img = locationsearch.base_img()
         poi_list.append((city, poi_img))
     for city in flights:
-        locationsearch = LocationSearch(city)
+        locationsearch = LocationSearch(city,country)
         flight_img = locationsearch.base_img()
         flight_list.append((city, flight_img))
     return render_template("index.html", poi_list=poi_list, flight_list=flight_list)
@@ -41,8 +42,8 @@ def home():
 
 # Current load time is 20 seconds
 
-async def imgQuery(city):
-    locationsearch = LocationSearch(city)
+async def imgQuery(city, country):
+    locationsearch = LocationSearch(city, country)
     header_img, header_img2, header_img3 = locationsearch.header_img()
     base_img = locationsearch.base_img()
     food_img = locationsearch.food_img()
@@ -105,10 +106,9 @@ async def search():
     if request.method == "POST":
         city = request.form["search"]
         ai_result = await aIQuery(city)
-        img_result = await imgQuery(city)
-
-        header_img, header_img2, header_img3, base_img, food_img, architecture_img = img_result
         country, airport, dynamic_p1, dynamic_p2, dynamic_p3, dynamic_h1, dynamic_h2, dynamic_h3 = ai_result
+        img_result = await imgQuery(city, country)
+        header_img, header_img2, header_img3, base_img, food_img, architecture_img = img_result
 
         f_type = "One-way"
 
