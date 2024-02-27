@@ -58,6 +58,12 @@
         </ul>
       </nav><!-- .navbar -->
 
+      <div id="hamburger-menu" class="hamburger-menu" onclick="toggleMenu()">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+
     </div>
   </header><!-- End Header -->
 
@@ -309,6 +315,18 @@
 
     window.onload = toggleMediaBasedOnDevice; // Call function when page loads
   </script>
+
+  <script>
+    // JavaScript function to toggle the visibility of the navigation menu
+    function toggleMenu() {
+        var menu = document.getElementById("navbar");
+        if (menu.style.display === "block") {
+            menu.style.display = "none";
+        } else {
+            menu.style.display = "block";
+        }
+    }
+</script>
 
 </body>
 
