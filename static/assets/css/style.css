@@ -1030,6 +1030,10 @@ section {
 # Portfolio
 --------------------------------------------------------------*/
 
+.portfolio {
+  background-color: #fff; /* Set background color to white */
+}
+
 .portfolio .portfolio-wrap img {
   width: 450px;
   height: 450px;
