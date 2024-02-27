@@ -342,10 +342,10 @@ p {
 
 @media screen and (max-width: 768px) {
     .navbar ul li a {
-        font-size: 12px;
+        font-size: 15px;
     }
     .logo h1 {
-        font-size: 20px;
+        font-size: 15px;
     }
 }
 
