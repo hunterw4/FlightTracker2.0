@@ -301,6 +301,16 @@ p {
 * Mobile Navigation 
 */
 
+@media screen and (min-width: 769px) {
+    /* Additional adjustments for larger screens */
+    .navbar ul li a {
+        font-size: 15px;
+    }
+    .logo h1 {
+        font-size: 18px;
+    }
+}
+
 /* Styling for the hamburger menu icon */
 .hamburger-menu {
   display: none; /* Hide by default on larger screens */
