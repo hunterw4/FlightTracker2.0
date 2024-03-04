@@ -62,7 +62,13 @@
 				          <li><a href="/">Home</a></li>
 				          <li><a href="/">POI</a></li>
 				          <li><a href="packages.html">Contact</a></li>
-				          <li><a href="contact.html">Login</a></li>
+							{% if not logged_in %}
+							  <li><a href="/login">Login</a></li>
+							{% endif %}
+							{% if logged_in %}
+								<li><a href="/logout">Logout</a></li>
+							{% endif %}
+
 				        </ul>
 				      </nav><!-- #nav-menu-container -->					      		  
 					</div>

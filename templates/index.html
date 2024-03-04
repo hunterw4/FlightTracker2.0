@@ -53,8 +53,14 @@
           <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
           <li><a class="nav-link scrollto" href="#portfolio">Plans</a></li>
           <li><a class="nav-link scrollto" href="/edit-flight">Custom</a></li>
-          <li><a class="nav-link scrollto" href="#contact">Login
+          {% if not logged_in %}
+          <li><a class="nav-link scrollto" href="/login">Login
           <i class="bi bi-person-circle"></i></a></li>
+          {% endif %}
+          {% if logged_in %}
+          <li><a class="nav-link scrollto" href="/logout">Logout
+          <i class="bi bi-person-circle"></i></a></li>
+          {% endif %}
         </ul>
       </nav><!-- .navbar -->
 
@@ -194,14 +200,14 @@
         </div>
       {% endfor %}
 
-      {% for city, poi_img in poi_list %}
+      {% for poi_info in poi_list %}
         <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-          <div class="portfolio-wrap" data-city="{{ city }}">
-            <img src="{{ poi_img }}" class="img-fluid" alt="{{ city }}">
+          <div class="portfolio-wrap" data-city="{{ poi_info['city'] }}">
+            <img src="{{ poi_info['img'] }}" class="img-fluid" alt="{{ poi_info['city'] }}">
             <div class="portfolio-links">
-              <a href="/" data-gallery="portfolioGallery" title="{{ city }}"><i class="bx bx-plus"></i></a>
+              <a href="/" data-gallery="portfolioGallery" title="{{ poi_info['city'] }}"><i class="bx bx-plus"></i></a>
               <form action="/search" method="POST">
-                <input type="hidden" name="search" value="{{ city }}">
+                <input type="hidden" name="search" value="{{ poi_info['city'] }}">
                 <button type="submit" title="Check out POI" style="background: none; border: none; cursor: pointer;"><i class="bx bx-link"></i></button>
               </form>
             </div>

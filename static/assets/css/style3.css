@@ -8337,3 +8337,14 @@ h1, h2, h3, h4, h5,
 .owl-carousel.owl-drag .owl-item {
   -ms-touch-action: pan-y;
   touch-action: pan-y; }
+
+.card-deck-first {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px; /* Adjust margin as needed */
+}
+
+.card-first {
+    max-width: 300px; /* Set maximum width for the card */
+}

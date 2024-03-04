@@ -185,47 +185,55 @@ class expensiveSearch():
         deep_link = ""
         total_layover_time = 0
         total_flight_time = 0
+
+        # Find the cheapest flight
         for i, flight_data in enumerate(data["data"]):
             price = flight_data["price"]
             if price < cheapest:
                 cheapest = price
                 cheapest_index = i
-        stop = data["data"][cheapest_index]["route"]
-        for i in range(len(stop) - 1):  # Stop iterating at the second-to-last segment
-            current_flight_arrival = stop[i]['utc_arrival']
-            next_flight_departure = stop[i + 1]['utc_departure']
 
-            # Convert departure and arrival times to datetime objects for calculation
-            current_flight_arrival_dt = dt.strptime(current_flight_arrival, "%Y-%m-%dT%H:%M:%S.%fZ")
-            next_flight_departure_dt = dt.strptime(next_flight_departure, "%Y-%m-%dT%H:%M:%S.%fZ")
+        # Check if a cheapest flight was found
+        if cheapest_index is not None:
+            stop = data["data"][cheapest_index]["route"]
+            for i in range(len(stop) - 1):  # Stop iterating at the second-to-last segment
+                current_flight_arrival = stop[i]['utc_arrival']
+                next_flight_departure = stop[i + 1]['utc_departure']
 
-            # Calculate layover time between consecutive flights
-            layover_time = (next_flight_departure_dt - current_flight_arrival_dt).total_seconds()
+                # Convert departure and arrival times to datetime objects for calculation
+                current_flight_arrival_dt = dt.strptime(current_flight_arrival, "%Y-%m-%dT%H:%M:%S.%fZ")
+                next_flight_departure_dt = dt.strptime(next_flight_departure, "%Y-%m-%dT%H:%M:%S.%fZ")
 
-            # Add layover time to total layover
-            total_layover_time += layover_time
+                # Calculate layover time between consecutive flights
+                layover_time = (next_flight_departure_dt - current_flight_arrival_dt).total_seconds()
 
-        total_layover_hours = total_layover_time / 3600
-        total_layover_hours_rounded = round(total_layover_hours)
-        total_travel_time = total_layover_hours_rounded
-        total_flight_hours = total_flight_time / 3600
-        total_flight_hours_rounded = round(total_flight_hours)
-        total_travel_time = total_flight_hours_rounded + total_layover_hours_rounded
+                # Add layover time to total layover
+                total_layover_time += layover_time
 
-        fare = stop[0]["fare_category"]
-        flight_class = ""
-        if fare == "M":
-            flight_class = "Economy"
-        elif fare == "C":
-            flight_class = "Business"
-        elif fare == "F":
-            flight_class = "First Class"
-        stops = len(stop) - 1
-        if stops == 0:
-            stops = "Zero"
+            total_layover_hours = total_layover_time / 3600
+            total_layover_hours_rounded = round(total_layover_hours)
+            total_travel_time = total_layover_hours_rounded
+            total_flight_hours = total_flight_time / 3600
+            total_flight_hours_rounded = round(total_flight_hours)
+            total_travel_time = total_flight_hours_rounded + total_layover_hours_rounded
 
-        deep_link = data["data"][cheapest_index]["deep_link"]
-        return cheapest, flight_class, stops, total_layover_hours_rounded, total_flight_time, deep_link
+            fare = stop[0]["fare_category"]
+            flight_class = ""
+            if fare == "M":
+                flight_class = "Economy"
+            elif fare == "C":
+                flight_class = "Business"
+            elif fare == "F":
+                flight_class = "First Class"
+            stops = len(stop) - 1
+            if stops == 0:
+                stops = "Zero"
+
+            deep_link = data["data"][cheapest_index]["deep_link"]
+            return cheapest, flight_class, stops, total_layover_hours_rounded, total_flight_time, deep_link
+        else:
+            # Return default values or handle the case where no cheapest flight was found
+            return None, None, None, None, None, None
 
 
 class customSearch():
