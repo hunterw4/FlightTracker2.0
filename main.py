@@ -17,17 +17,20 @@ import asyncio
 from aiohttp import ClientSession
 import random
 import datetime as dt
+from pathlib import Path
+
 
 today = dt.date.today()
 
 app = Flask(__name__)
-app.config['DB_SECRET_KEY'] = os.environ.get("DB_SECRET_KEY")
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DB_URL', 'sqlite:///instance/users.db')
+app.config['SECRET_KEY'] = "8BYkEfBA6O6donzWlSihBXox7C0sKR6b"
+# Specify the relative path to the SQLite database file
+db_file_path = Path(__file__).parent / 'instance' / 'users.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DB_URL', f'sqlite:///{db_file_path}')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 Bootstrap5(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///users.db"
 
 
 db = SQLAlchemy(app)
