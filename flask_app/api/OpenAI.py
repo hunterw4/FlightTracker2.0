@@ -1,93 +1,9 @@
 import aiohttp
 import requests
 import os
-from dotenv import load_dotenv, dotenv_values
 from openai import OpenAI
 import asyncio
-from aiohttp import ClientSession
 from datetime import datetime as dt, timedelta as td
-
-load_dotenv()
-
-class LocationSearch:
-    API_KEY = os.environ.get("API_SECRET_KEY")
-    endpoint = "https://api.unsplash.com/search/photos"
-    def __init__(self, city, country):
-        self.city = city
-        self.country = country
-    def header_img(self):
-        search_params = {
-            "query": f"{self.city}",
-            "per_page": 10,
-            "client_id": LocationSearch.API_KEY
-        }
-        response = requests.get(LocationSearch.endpoint, params=search_params)
-        data = response.json()
-        try:
-            header_img = data["results"][0]["urls"]["full"]
-            # base_img is [1] hence the skip
-            header_img2 = data["results"][2]["urls"]["full"]
-            header_img3 = data["results"][3]["urls"]["full"]
-        except IndexError:
-            # If IndexError occurs, try another query
-            search_params["query"] = self.country  # Modify the query as needed
-            response = requests.get(LocationSearch.endpoint, params=search_params)
-            data = response.json()
-            header_img = data["results"][0]["urls"]["full"]  # Use the result of the second query
-            header_img2 = data["results"][2]["urls"]["full"]
-            header_img3 = data["results"][3]["urls"]["full"]
-
-        return header_img, header_img2, header_img3
-    def base_img(self):
-        search_params = {
-            "query": f"{self.city}",
-            "per_page": 10,
-            "client_id": LocationSearch.API_KEY
-        }
-        response = requests.get(LocationSearch.endpoint, params=search_params)
-        data = response.json()
-        try:
-            base_img = data["results"][0]["urls"]["full"]
-        except IndexError:
-            # If IndexError occurs, try another query
-            search_params["query"] = self.country  # Modify the query as needed
-            response = requests.get(LocationSearch.endpoint, params=search_params)
-            data = response.json()
-            base_img = data["results"][0]["urls"]["full"]  # Use the result of the second query
-        return base_img
-
-    def get_image_url(self, query):
-        search_params = {
-            "query": query,
-            "per_page": 10,
-            "client_id": LocationSearch.API_KEY
-        }
-        response = requests.get(LocationSearch.endpoint, params=search_params)
-        data = response.json()
-        for photo in data["results"]:
-            if "tags" in photo:
-                for tag in photo["tags"]:
-                    if tag.get("title", "").lower() == query.lower().split()[1] and tag.get("title",
-                                                                                            "").lower() == self.city.lower():
-                        return photo["urls"]["full"]
-        # If no matching photo is found, return the first URL
-        return data["results"][0]["urls"]["full"]
-
-    def food_img(self):
-        try:
-            query = f"{self.city} food"
-            return self.get_image_url(query)
-        except IndexError:
-            query = f"{self.country} food"
-            return self.get_image_url(query)
-
-    def architecture_img(self):
-        try:
-            query = f"{self.city} architecture"
-            return self.get_image_url(query)
-        except IndexError:
-            query = f"{self.country} architecture"
-            return self.get_image_url(query)
 
 class openAi:
     openAiKey = os.environ.get("OPENAI_KEY")
