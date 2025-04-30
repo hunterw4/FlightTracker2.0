@@ -16,6 +16,8 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/owl.theme.default.min.css') }}">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.5.6/css/ionicons.min.css">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style3.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/assistant.css') }}">
+
     </head>
     <body id="page-top">
         <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
@@ -39,7 +41,7 @@
 
         <body>
 		<div class="home-slider owl-carousel js-fullheight">
-      <div class="slider-item js-fullheight" style="background-image:url({{header_img}});">
+      <div class="slider-item js-fullheight" style="background-image:url({{c_img}});">
       	<div class="overlay"></div>
         <div class="container">
           <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center">
@@ -53,7 +55,7 @@
         </div>
       </div>
 
-      <div class="slider-item js-fullheight" style="background-image:url({{header_img2}});">
+      <div class="slider-item js-fullheight" style="background-image:url({{c_img2}});">
       	<div class="overlay"></div>
         <div class="container">
           <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center">
@@ -67,7 +69,7 @@
         </div>
       </div>
 
-      <div class="slider-item js-fullheight" style="background-image:url({{header_img3}});">
+      <div class="slider-item js-fullheight" style="background-image:url({{c_img3}});">
       	<div class="overlay"></div>
         <div class="container">
           <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center">
@@ -85,12 +87,12 @@
             <div class="container px-5">
                 <div class="row gx-5 align-items-center">
                     <div class="col-lg-6 order-lg-2">
-                        <div class="p-5"><img class="photo-square" src="{{base_img}}" alt="..." /></div>
+                        <div class="p-5"><img class="photo-square" src="{{header_img}}" alt="..." /></div>
                     </div>
                     <div class="col-lg-6 order-lg-1">
                         <div class="p-5">
-                            <h3 class="display-4">{{dynamic_h1}}</h3>
-                            <p>{{dynamic_p1}}</p>
+                            <h3 class="display-4">{{city_header}}</h3>
+                            <p>{{city_text}}</p>
                         </div>
                     </div>
                 </div>
@@ -104,8 +106,8 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="p-5">
-                            <h3 class="display-4">{{dynamic_h2}}</h3>
-                            <p>{{dynamic_p2}}</p>
+                            <h3 class="display-4">{{food_header}}</h3>
+                            <p>{{food_text}}</p>
                         </div>
                     </div>
                 </div>
@@ -119,8 +121,8 @@
                     </div>
                     <div class="col-lg-6 order-lg-1">
                         <div class="p-5">
-                            <h3 class="display-4">{{dynamic_h3}}</h3>
-                            <p>{{dynamic_p3}}.</p>
+                            <h3 class="display-4">{{architecture_header}}</h3>
+                            <p>{{architecture_text}}</p>
                         </div>
                     </div>
                 </div>
@@ -146,6 +148,22 @@
                 </div>
             </div>
         </div>
+        <div class="chatbot-container">
+        <div class="chatbot-header" onclick="this.parentElement.classList.toggle('expanded')">
+            <span>AI Assistance</span>
+            <span>▼</span>
+        </div>
+            <div class="chatbot-body">
+                <div class="chatbot-messages">
+                    <div class="message">Hello! How can I help you?</div>
+                    <div class="message">Have any questions about {{city}}?</div>
+                </div>
+                <div class="chatbot-input">
+                    <input type="text" id="user-input" placeholder="Type a message...">
+                    <button onclick="chatBot()">Send</button>
+                </div>
+            </div>
+            </div>
         <section class="card-section">
           <center>
             <div class="pricing pricing-palden">
@@ -221,6 +239,7 @@
             <button type="button" onclick="window.location.href='/edit-flight'" class="btn btn-lg btn-block btn-outline-primary">Customize</button>
           </div>
         </div>
+        <script src="{{ url_for('static', filename='js/script.js') }}"></script>
         <footer class="py-5 bg-black">
             <div class="container px-5"><p class="m-0 text-center text-white small">Copyright © HW 2024</p></div>
         </footer>
