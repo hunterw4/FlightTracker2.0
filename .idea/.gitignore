@@ -2,3 +2,11 @@
 /shelf/
 /workspace.xml
 data/
+.idea/
+__pycache__/
+*.pyc
+venv/
+.env
+*.egg-info/
+pip-wheel-metadata/
+*.log
