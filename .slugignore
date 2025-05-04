@@ -10,11 +10,8 @@ pip-wheel-metadata/
 *.whl
 *.zip
 *.tar.gz
-data/
 *.csv
 *.json
-static/images/
-static/videos/
 tests/
 docs/
 *.log
