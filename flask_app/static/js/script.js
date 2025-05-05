@@ -29,3 +29,16 @@ function chatBot(){
     })
     console.log(userInput)
 }
+
+// To handle hiitting enter instead of just clicking.
+
+document.addEventListener('DOMContentLoaded', () => {
+    const inputField = document.getElementById('user-input');
+    inputField.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            console.log('Enter key pressed, calling chatBot()');
+            chatBot();
+        }
+    });
+});

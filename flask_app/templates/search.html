@@ -160,7 +160,7 @@
                 </div>
                 <div class="chatbot-input">
                     <input type="text" id="user-input" placeholder="Type a message...">
-                    <button onclick="chatBot()">Send</button>
+                    <button id="submitBtn" onclick="chatBot()">Send</button>
                 </div>
             </div>
             </div>
@@ -239,7 +239,6 @@
             <button type="button" onclick="window.location.href='/edit-flight'" class="btn btn-lg btn-block btn-outline-primary">Customize</button>
           </div>
         </div>
-        <script src="{{ url_for('static', filename='js/script.js') }}"></script>
         <footer class="py-5 bg-black">
             <div class="container px-5"><p class="m-0 text-center text-white small">Copyright © HW 2024</p></div>
         </footer>
@@ -251,5 +250,7 @@
         <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/owl.carousel.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/mains.js') }}"></script>
+        
+        <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     </body>
 </html>

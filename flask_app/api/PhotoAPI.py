@@ -1,5 +1,3 @@
-from platform import architecture
-
 import aiohttp
 import requests
 import os
