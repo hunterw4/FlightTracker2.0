@@ -82,11 +82,22 @@ class Ai_Response:
             session['user_responses'] = []
         if 'ai_responses' not in session:
             session['ai_responses'] = []
+        # if 'flight_state' not in session:
+        #     session['flight_state'] = []
+        # if 'flight_details' not in session:
+        #     session['flight_details'] = {}
+
 
         form_data = await request.form
         user_input = form_data.get('user_input', '')
         session['user_responses'].append(user_input)
         session.modified = True
+
+        # # Keywords to look for, will need to make static methods to validate the inputs
+
+        # flight_keywords = ['flights', 'flight', 'plane tickets', 'flight tickets', 'fly', 'airline tickets']
+        # is_flight_query = any(keyword in user_input.lower() for keyword in flight_keywords)
+
         genai.configure(api_key=GENAI_API)
         model = genai.GenerativeModel('gemini-2.0-flash')
         system_instructions = (
@@ -97,13 +108,6 @@ class Ai_Response:
             f"- Flights: airports, schedules, airlines, travel tips, weather impacts. "
             f"Use chat log to continue conversation: User: {session['user_responses']}, AI: {session['ai_responses']}. "
             f"Stay on topic. If unclear or off-topic, ask for clarification ONLY if unresolvable. "
-            f"For flight ticket requests: "
-            f"1. Check chat log for provided details (month, timeframe like '7 days', departure airport, arrival airport). "
-            f"2. Prompt for each missing detail in order (e.g., 'Please provide the month.', 'Please provide the amount of days. 'Please provide the departure airport. 'Please provide the arrival airport.'''). "
-            f"3. Do not use random values unless user explicitly says 'no preference' or similar after prompting. "
-            f"4. Once all four details are provided in chat log, respond only with 'Confirming: [month], [timeframe], [departure], [arrival]'. "
-            f"Do not confirm until all details are explicitly provided."
-            f"Once confirmed continue assistance as normal"
         )
         prompt = f"{system_instructions}\n\nUser question: {user_input}"
         response = model.generate_content(prompt)

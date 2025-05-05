@@ -32,7 +32,10 @@ async def logout():
 @app.route('/validate-search', methods=['POST'])
 async def validate_search():
     form = await request.form
-    city = form['location']
+    raw_city = form['location']
+    raw_city = raw_city.lower()
+    city = raw_city[0].upper() + raw_city[1:]
+    
     if city in location_data['city'].values:
         return redirect(f'/search/{city}')
     else:
