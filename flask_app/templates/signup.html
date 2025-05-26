@@ -19,22 +19,22 @@
                   {% endif %}
                 {% endfor %}
           {% endwith %}
-        <form action="/signup" method="POST"> <!-- Modified action attribute -->
+        <form id="signupForm" method="POST"> <!-- Modified action attribute -->
             <div class="field">
-                <span class="fa fa-user"></span>
-                <input type="text" name="email" required placeholder="Email"> <!-- Added name attribute -->
+                <span class="fa fa-user" id="email-error"></span>
+                <input type="text" name="email" id="email" required placeholder="Email"> <!-- Added name attribute -->
+            </div>
+            <div class="field space">
+                <span class="fa fa-lock" id="name-error"></span>
+                <input type="text" class="name" name="name" id="name" required placeholder="Name"> <!-- Added name attribute -->
+            </div>
+            <div class="field space">
+                <span class="fa fa-lock" id="password-error"></span>
+                <input type="password" class="password" name="password" id="password" required placeholder="Password"> <!-- Added name attribute -->
             </div>
             <div class="field space">
                 <span class="fa fa-lock"></span>
-                <input type="text" class="name" name="name" required placeholder="Name"> <!-- Added name attribute -->
-            </div>
-            <div class="field space">
-                <span class="fa fa-lock"></span>
-                <input type="password" class="password" name="password" required placeholder="Password"> <!-- Added name attribute -->
-            </div>
-            <div class="field space">
-                <span class="fa fa-lock"></span>
-                <input type="password" class="password" name="confirm_password" required placeholder="Confirm Password"> <!-- Added name attribute -->
+                <input type="password" class="password" name="confirm_password" id="confirm_password" required placeholder="Confirm Password"> <!-- Added name attribute -->
             </div>
             <div class="field">
                 <input type="submit" value="SIGN UP"> <!-- Changed button value -->
@@ -42,6 +42,7 @@
         </form>
     </div>
 </div>
+<script src="{{ url_for('static', filename='js/ajax.js') }}"></script>
 
 </body>
 </html>

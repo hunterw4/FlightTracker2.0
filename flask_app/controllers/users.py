@@ -1,5 +1,9 @@
 from flask_app import app
-from quart import render_template, redirect, url_for, request, session
+from flask_app.models import user
+from quart import render_template, redirect, url_for, request, session, jsonify
+from flask_bcrypt import Bcrypt
+
+bcrypt = Bcrypt(app)
 #=-=-=-=--=#
 #=-=-=-=-=-#
 #=-=-=-=--=#
@@ -17,6 +21,41 @@ today = dt.date.today()
 @app.route("/login")
 async def login():
     return await render_template("login.html")
+
+@app.route('/validate-signup', methods=['POST'])
+async def validate_signup():
+    data = request.json
+    errors = {}
+
+    if '@' not in data['email']:
+        errors['email'] = 'Email must contain @'
+    if user.User.get_by_email(data['email']):
+        errors['email'] = 'User already exists. Please sign in!'
+
+    if len(data['password']) < 6:
+        errors['password'] = 'Password length must be at least 6 characters'
+    if data['password'] != data['confirm_password']:
+        errors['password'] = 'Passwords do not match, please try again.'
+
+    if errors:
+        return jsonify({'errors': errors}), 400
+    else:
+        return jsonify({'success': 'Validation passed'}), 200
+
+
+
+@app.route('/create-user', methods=['POST'])
+async def create_user():
+    data = request.get_json()
+    pw_hash = bcrypt.generate_password_hash(data['password'], 12)
+
+    user_data = {
+        'name': data['name'],
+        'email': data['email'],
+        'password': pw_hash
+    }
+    user.User.create(user_data)
+    return redirect('/login')
 
 
 @app.route("/signup")
