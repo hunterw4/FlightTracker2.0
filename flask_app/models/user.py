@@ -1,3 +1,5 @@
+from sqlalchemy.util import await_only
+
 from flask_app.config.mysqlconnection import connect_to_mysql
 from quart import session, flash
 
@@ -12,9 +14,9 @@ class User:
         self.updated_at = data['updated_at']
 
     @classmethod
-    def get_all(cls):
+    async def get_all(cls):
         query = 'SELECT * FROM users'
-        results = (cls.DB).query_db(query)
+        results = await (cls.DB).query_db(query)
         user_data = []
         for row in results:
             user_dict = {
@@ -28,53 +30,53 @@ class User:
         return user_data
 
     @classmethod
-    def get_one(cls, id):
+    async def get_one(cls, id):
         query = """
             SELECT * FROM users
             WHERE id = %(id)s"""
-        results = connect_to_mysql(cls.DB).query_db(query,{"id": id})
+        results =  await connect_to_mysql(cls.DB).query_db(query,{"id": id})
         return cls(results[0])
 
 
     @classmethod
-    def create(cls, data):
+    async def create(cls, data):
         query = '''INSERT INTO users (name, email, password, created_at, updated_at) 
                    VALUES( %(name)s, %(email)s, %(password)s, NOW(), NOW());'''
-        return connect_to_mysql(cls.DB).query_db(query, data)
+        return await connect_to_mysql(cls.DB).query_db(query, data)
 
     @classmethod
-    def update(cls, data):
+    async def update(cls, data):
         query = """
             UPDATE users
             SET first_name = %(fname)s, email = %(email)s, updated_at = NOW()
             WHERE id = %(id)s;
         """
-        results = connect_to_mysql(cls.DB).query_db(query, data)
+        results = await connect_to_mysql(cls.DB).query_db(query, data)
         return results
 
     @classmethod
-    def delete(cls, id):
+    async def delete(cls, id):
         query = """
             DELETE FROM users
             WHERE id = %(id)s;
         """
-        results = connect_to_mysql(cls.DB).query_db(query, {'id':id})
+        results = await connect_to_mysql(cls.DB).query_db(query, {'id':id})
         return results
 
     @classmethod
-    def get_by_email(cls, data):
+    async def get_by_email(cls, data):
         query = """
             SELECT email FROM users
             WHERE email = %(email)s;
         """
-        result = connect_to_mysql(cls.DB).query_db(query, {'email': data})
+        result = await connect_to_mysql(cls.DB).query_db(query, {'email': data})
         return result
 
     @classmethod
-    def login(cls, data):
+    async def login(cls, data):
         query = """
             SELECT * FROM users
             WHERE email = %(email)s;
         """
-        result = connect_to_mysql(cls.DB).query_db(query, {'email': data})
+        result = await connect_to_mysql(cls.DB).query_db(query, {'email': data})
         return result
