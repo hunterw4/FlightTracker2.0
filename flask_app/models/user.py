@@ -1,5 +1,3 @@
-from sqlalchemy.util import await_only
-
 from flask_app.config.mysqlconnection import connect_to_mysql
 from quart import session, flash
 
