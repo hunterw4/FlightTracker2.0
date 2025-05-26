@@ -1,10 +1,9 @@
 quart==0.20.0
-gunicorn==21.2.0
-uvicorn==0.29.0
+hypercorn==0.16.0             # Async ASGI server (instead of gunicorn/uvicorn)
 aiohttp==3.9.5
+aiomysql==0.2.0
+python-dotenv==1.0.1
 google-generativeai==0.7.2
 requests==2.31.0
 pandas==2.2.1
-python-dotenv==1.0.1
 numpy==1.26.4
-python-dotenv==1.0.1
